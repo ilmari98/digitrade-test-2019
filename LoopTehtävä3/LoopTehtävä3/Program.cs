@@ -12,7 +12,7 @@ namespace LoopTehtävä3
             int evenSum = 0;
             int oddSum = 0;
 
-            for(int i = 0;i < userInput; i++)
+            for (int i = 0; i < userInput; i++)
             {
                 if (i % 2 == 0)
                 {
