@@ -14,9 +14,9 @@ namespace Task3New
 
             do
             {
-                Console.WriteLine("Syötä Kolmas luku jonka ohjelma tarkistaa ensimmästen kahden luvun välistä: ");
+                Console.WriteLine("Syötä jokin luku jonka ohjelma laskee käykö ensimmästen kahden luvun väliin: ");
                 bool isValidNumber = int.TryParse(Console.ReadLine(), out int number);
-                if (isValidNumber = true)
+                if (isValidNumber == true)
                 {
 
                     int temporayThirdNumber = 0;
@@ -30,10 +30,11 @@ namespace Task3New
                     if (returnedValue == true)
                     {
                         Console.WriteLine($"\nSyöttämäsi luku {number} on numeroiden {numberOne} ja {numberTwo} välissä!");
+                        return;
                     }
                     else
                     {
-                        Console.WriteLine($"Syöttösi ei käy aikaisempien numeroiden väliin");
+                        Console.WriteLine($"Syöttösi ei käy, kirjoita jokin muu numero");
                     }
                 }
                 else
@@ -41,6 +42,7 @@ namespace Task3New
                     Console.WriteLine($"Sovellukseen ei käy teksti, kirjoita jokin numero");
                 }
             } while (true);
+                    
         }
         static bool NumberFromRange(int lowerBound, int number, int upperBound)
         {
