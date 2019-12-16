@@ -9,36 +9,55 @@ namespace HETUtask1
             char userChoice;
             do
             {
-                Console.Clear();
+                //Console.Clear();
                 userChoice = UI();
                 switch (userChoice)
                 {
                     case 'T':
+                        SSNCheck(); // Kutsutaan Sotun tarkastus funktiota
                     break;
                     case 'U':
+                        SSNCreator(); // Kutsutaan Sotun luonti funktiota
+                    break;
+                    case 'X':
                     break;
                     default:
-                        Console.WriteLine("Tarkasta mitä painoit!");
+                        Console.WriteLine("\nTarkasta mitä painoit! Enter jatkaa ohjelman suoritusta.");
+                        Console.ReadLine();
                         break;
                 }
+                Console.ReadLine();
             } while (userChoice != 'X');
 
-            string userInput = Console.ReadLine();
-
-            userInput = RemoveSpaces(userInput);
-            if (IsValidLength(userInput))
-            {
-                if (IsValidDate(userInput))
+            static void SSNCreator()
                 {
-                    int idNumber = InputParser(userInput);
-                    char getLastChar = GetUserInputCheckMark(userInput);
-                    bool isOK = IsValidID(idNumber, getLastChar);
-                    PrintResult(isOK);
+                Console.Write("\nAnna tarkastettava sotu: ");
+                string userInput = Console.ReadLine();
+
+                userInput = RemoveSpaces(userInput);
                 }
-            }
-            else
-            {
-                Console.WriteLine("Tarkasta HETUn oikeellisuus - liikaa merkkejä");
+
+            static void SSNCheck()
+                {
+
+                Console.Write("\nAnna tarkastettava sotu [PPKKVV-XXXT] ");
+                string userInput = Console.ReadLine();
+
+                userInput = RemoveSpaces(userInput);
+                if (IsValidLength(userInput,10))
+                {
+                    if (IsValidDate(userInput))
+                    {
+                        int idNumber = InputParser(userInput);
+                        char getLastChar = GetUserInputCheckMark(userInput);
+                        bool isOK = IsValidID(idNumber, getLastChar);
+                        PrintResult(isOK);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("\nTarkasta HETUn oikeellisuus - liikaa merkkejä");
+                }
             }
         }
 
@@ -58,8 +77,8 @@ namespace HETUtask1
         {
             bool result = false;
             string day = userInput.Substring(0, 2);
-            string month = userInput.Substring(2, 4);
-            string year = userInput.Substring(4, 6);
+            string month = userInput.Substring(2,2);
+            string year = userInput.Substring(4, 2);
             string century = userInput.Substring(6, 1);
 
             if (century == "-")
@@ -72,7 +91,7 @@ namespace HETUtask1
             }
             else
             {
-                Console.WriteLine("Väärä vuosisata");
+                Console.WriteLine("\nVäärä vuosisata");
                 return result;
             }
             try
@@ -85,9 +104,13 @@ namespace HETUtask1
                 Console.WriteLine(e.Message);
 
             }
-            return result = false;
+            return result;
         }
 
+        static bool IsValidLength(string userInput, int length)
+        {
+            return userInput.Length == length;
+        }
         static bool IsValidLength(string userInput)
         {
             return userInput.Length == 11;
@@ -115,9 +138,17 @@ namespace HETUtask1
         {
             return userInput[userInput.Length - 1];
         }
+        
+        
         static int InputParser(string stringParser)
         {
-            string removed = stringParser.Remove(10, 1);
+            string removed = "";
+            //Testataan stringParser -muutujan pituuus
+            // Jos pituus yli 10 niin poistetaan viimeinen merkki
+            if (stringParser.Length > 10)
+            {
+                removed = stringParser.Remove(10, 1);
+            }
             removed = removed.Remove(6, 1);
 
             return int.Parse(removed);
@@ -125,9 +156,9 @@ namespace HETUtask1
         static void PrintResult(bool IsValidID)
         {
             if (IsValidID)
-                Console.WriteLine("Sotu on oikein!");
+                Console.WriteLine("\nSotu on oikein!");
             else
-                Console.WriteLine("Sotu on väärin!");
+                Console.WriteLine("\nSotu on väärin!");
         }
     }
 }
