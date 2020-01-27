@@ -22,7 +22,7 @@ namespace ArrayTask2
             {
                 total += rnd.Next(50);
             }
-            average = total / iT.Length;
+            average = total / iT.Length; //Laskee keskiarvon
             Console.WriteLine($"keskiarvo on {average}");
         }
     }
