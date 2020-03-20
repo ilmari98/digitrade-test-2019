@@ -9,6 +9,11 @@ namespace Harjoitustyö
             Console.WriteLine("Syötä viitenumero ja sovellus selvittää onko se sopiva numerosarja.\n");
             int refTotal = 0;
             int[] BBANvalseries = { 1, 3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1 };
+            string refNumberSansLast;
+            string refNumber;
+            string newRefNumber;
+            string correctRefNumber;
+            int lastNumber;
 
             char userChoice;
             do
@@ -17,25 +22,32 @@ namespace Harjoitustyö
                 switch (userChoice)
                 {
                     case '1':
-                        Console.WriteLine("\n\nSyötä viitenumero ja sovellus selvittää sen viimeisen numeron");
-                        string refSansLast = Console.ReadLine();
-                        string newRefNumber = RemoveSpaces(refSansLast);
+                        Console.WriteLine("\n\nSyötä mahdollinen viitenumero ja sovellus selvittää sen viimeisen numeron");
+                        refNumberSansLast = Console.ReadLine();
+                        newRefNumber = RemoveSpaces(refNumberSansLast);
                         SumOfRefNum(newRefNumber);
-                        Console.WriteLine($"Viimeinen numero viitesarjallesi olisi {RoundUp(refTotal) - refTotal}.");
+                        lastNumber = RoundUp(refTotal) - refTotal;
+                        Console.WriteLine(lastNumber);
                         break;
                     case '2':
+                        Console.WriteLine("\n\nSyötä viitenumero ja sovellus tarkistaa sen sovellettavuuden\n\n");
+                        refNumber = Console.ReadLine();
+                        refNumberSansLast = refNumber.Remove(refNumber.Length - 1, 1);
+                        newRefNumber = RemoveSpaces(refNumberSansLast);
+                        SumOfRefNum(newRefNumber);
+                        lastNumber = RoundUp(refTotal) - refTotal;
+                        correctRefNumber = refNumberSansLast.ToString() + lastNumber.ToString();
+                        RefChecker(refNumber, correctRefNumber, lastNumber);
                         break;
                     case '3':
+                        break;
+                    case '4':
                         return;
                     default:
                         Console.WriteLine($"\nError! Valintasi [{userChoice}] ei ole vaihtoehto!\n");
                         break;
                 }
             } while (((userChoice != '1') && (userChoice != '2') && (userChoice != '3')));
-
-    {
-
-            }
 
             string SumOfRefNum(string refSansLast)
             {
@@ -57,6 +69,18 @@ namespace Harjoitustyö
             {
                 if (roundUp % 10 == 0) return roundUp;
                 return (10 - roundUp % 10) + roundUp;
+            }
+
+            void RefChecker(string x, string y, int z)
+            {
+                if (x != y)
+                {
+                    Console.WriteLine($"Sinun viitenumerossa on virheellinen viimeinen numero, sen pitäisi olla {z}");
+                }
+                else if (x == y)
+                {
+                    Console.WriteLine("Sinun viitenumerosi on todellinen");
+                }
             }
 
             static char UI()
