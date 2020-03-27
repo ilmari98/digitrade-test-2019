@@ -7,13 +7,9 @@ namespace Harjoitustyö
         static void Main(string[] args)
         {
             Console.WriteLine("Syötä viitenumero ja sovellus selvittää onko se sopiva numerosarja.\n");
-            int refTotal = 0;
+            int lastNumber, refTotal = 0;
             int[] BBANvalseries = { 1, 3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1 };
-            string refNumberSansLast;
-            string refNumber;
-            string newRefNumber;
-            string correctRefNumber;
-            int lastNumber;
+            string refNumberSansLast, refNumber, newRefNumber, correctRefNumber;
 
             char userChoice;
             do
@@ -22,24 +18,43 @@ namespace Harjoitustyö
                 switch (userChoice)
                 {
                     case '1':
-                        Console.WriteLine("\n\nSyötä mahdollinen viitenumero ja sovellus selvittää sen viimeisen numeron");
+                        Console.WriteLine("\n\nSyötä mahdollinen viitenumero ja sovellus selvittää sen viimeisen numeron.\n\n");
                         refNumberSansLast = Console.ReadLine();
                         newRefNumber = RemoveSpaces(refNumberSansLast);
                         SumOfRefNum(newRefNumber);
                         lastNumber = RoundUp(refTotal) - refTotal;
-                        Console.WriteLine(lastNumber);
+                        Console.WriteLine($"\n\nViimeinen numero on {lastNumber}, eli viitenumero on {(newRefNumber.ToString() + lastNumber.ToString()).Insert(5, " ").Insert(11, " ").Insert(17, " ")}.\n\n");
+                        refTotal = 0;
                         break;
                     case '2':
-                        Console.WriteLine("\n\nSyötä viitenumero ja sovellus tarkistaa sen sovellettavuuden\n\n");
+                        Console.WriteLine("\n\nSyötä viitenumero ja sovellus tarkistaa sen todellisuuden.\n");
                         refNumber = Console.ReadLine();
                         refNumberSansLast = refNumber.Remove(refNumber.Length - 1, 1);
                         newRefNumber = RemoveSpaces(refNumberSansLast);
                         SumOfRefNum(newRefNumber);
                         lastNumber = RoundUp(refTotal) - refTotal;
                         correctRefNumber = refNumberSansLast.ToString() + lastNumber.ToString();
+                        refTotal = 0;
                         RefChecker(refNumber, correctRefNumber, lastNumber);
+                        refTotal = 0;
                         break;
                     case '3':
+                        Console.WriteLine("\n\nKuinka monta satunnaista viitenumeroa haluat luoda.\n");
+                        int amount = int.Parse(Console.ReadLine());
+                        Random rnd = new Random();
+                        int randonRefrenceNumber;
+                        string randomizedReferenceNumber;
+                        for (int i = 0; i < amount; i++)
+                        {
+                            randonRefrenceNumber = rnd.Next(100000000, 999999999);
+                            randomizedReferenceNumber = randonRefrenceNumber.ToString();
+                            SumOfRefNum(randomizedReferenceNumber);
+                            lastNumber = RoundUp(refTotal) - refTotal;
+                            correctRefNumber = randomizedReferenceNumber + lastNumber.ToString();
+                            Console.WriteLine($"\n{i+1}. {correctRefNumber.Insert(5," ").Insert(10, " ").Insert(15, " ")}");
+                        }
+                        refTotal = 0;
+                        Console.WriteLine();
                         break;
                     case '4':
                         return;
@@ -47,7 +62,7 @@ namespace Harjoitustyö
                         Console.WriteLine($"\nError! Valintasi [{userChoice}] ei ole vaihtoehto!\n");
                         break;
                 }
-            } while (((userChoice != '1') && (userChoice != '2') && (userChoice != '3')));
+            } while (userChoice != '4');
 
             string SumOfRefNum(string refSansLast)
             {
@@ -56,7 +71,7 @@ namespace Harjoitustyö
                 {
                     refTotal += (refSansLast[i] * BBANvalseries[i]) - BBANvalseries[i] * 48;
                 }
-                return $"Viimeinen numero on {refTotal}";
+                return refTotal.ToString();
             }
 
             static string RemoveSpaces(string userInput)
@@ -75,11 +90,11 @@ namespace Harjoitustyö
             {
                 if (x != y)
                 {
-                    Console.WriteLine($"Sinun viitenumerossa on virheellinen viimeinen numero, sen pitäisi olla {z}");
+                    Console.WriteLine($"\nSinun viitenumerossa on virheellinen viimeinen numero, sen pitäisi olla {z}.\n");
                 }
                 else if (x == y)
                 {
-                    Console.WriteLine("Sinun viitenumerosi on todellinen");
+                    Console.WriteLine($"\n\nSinun viitenumerosi {x.Insert(5, " ").Insert(10, " ").Insert(15, " ")} on todellinen.\n\n");
                 }
             }
 
@@ -88,7 +103,8 @@ namespace Harjoitustyö
                 Console.WriteLine("Viitenumero sovellus");
                 Console.WriteLine("[1] Hanki viitenumerollesi viimeinen numero.");
                 Console.WriteLine("[2] Testaa viitenumerosi aitouden.");
-                Console.WriteLine("[3] Sulje ohjelma.");
+                Console.WriteLine("[3] Luo satunnainen viitenumero.");
+                Console.WriteLine("[4] Sullje sovellus.");
                 Console.Write("valitse mitä tehdään: \n\n");
                 return char.ToUpper(Console.ReadKey().KeyChar);
             }
