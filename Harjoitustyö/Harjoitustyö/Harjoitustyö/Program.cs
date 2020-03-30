@@ -24,7 +24,7 @@ namespace Harjoitustyö
                         SumOfRefNum(newRefNumber);
                         lastNumber = RoundUp(refTotal) - refTotal;
                         correctRefNumber = (newRefNumber.ToString() + lastNumber);
-                        Console.WriteLine($"\n\nViimeinen numero on { lastNumber}, eli viitenumero on {correctRefNumber}.\n\n");
+                        Console.WriteLine($"\n\nViimeinen numero on {lastNumber}, eli viitenumero on {correctRefNumber}.\n\n");
                         refTotal = 0;
                         break;
                     case '2':
@@ -93,7 +93,7 @@ namespace Harjoitustyö
                 }
                 else if (x == y)
                 {
-                    Console.WriteLine($"\n\nSinun viitenumerosi {x.Insert(5, " ").Insert(11, " ").Insert(17, " ")} on todellinen.\n\n");
+                    Console.WriteLine($"\n\nSinun viitenumerosi {x} on todellinen.\n\n");
                 }
             }
 
