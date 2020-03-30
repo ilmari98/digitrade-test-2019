@@ -18,17 +18,17 @@ namespace Harjoitustyö
                 switch (userChoice)
                 {
                     case '1':
-                        Console.WriteLine("\n\nSyötä mahdollinen viitenumero ja sovellus selvittää sen viimeisen numeron.\n\n");
+                        Console.WriteLine("\nSyötä mahdollinen viitenumero ja sovellus selvittää sen viimeisen numeron.\n");
                         refNumberSansLast = Console.ReadLine();
                         newRefNumber = RemoveSpaces(refNumberSansLast);
                         SumOfRefNum(newRefNumber);
                         lastNumber = RoundUp(refTotal) - refTotal;
                         correctRefNumber = (newRefNumber.ToString() + lastNumber);
-                        Console.WriteLine($"\n\nViimeinen numero on {lastNumber}, eli viitenumero on {correctRefNumber}.\n\n");
+                        Console.WriteLine($"\nViimeinen numero on {lastNumber}, eli viitenumero on {correctRefNumber}.\n");
                         refTotal = 0;
                         break;
                     case '2':
-                        Console.WriteLine("\n\nSyötä viitenumero ja sovellus tarkistaa sen todellisuuden.\n");
+                        Console.WriteLine("\nSyötä viitenumero ja sovellus tarkistaa sen todellisuuden.\n");
                         refNumber = Console.ReadLine();
                         refNumberSansLast = refNumber.Remove(refNumber.Length - 1, 1);
                         SumOfRefNum(refNumberSansLast);
@@ -38,7 +38,7 @@ namespace Harjoitustyö
                         refTotal = 0;
                         break;
                     case '3':
-                        Console.WriteLine("\n\nKuinka monta satunnaista viitenumeroa haluat luoda.\n");
+                        Console.WriteLine("\nKuinka monta satunnaista viitenumeroa haluat luoda.\n");
                         int randomAmount = int.Parse(Console.ReadLine());
                         Random rnd = new Random();
                         int randonRefrenceNumber;
@@ -50,7 +50,7 @@ namespace Harjoitustyö
                             SumOfRefNum(randomizedReferenceNumber);
                             lastNumber = RoundUp(refTotal) - refTotal;
                             correctRefNumber = randomizedReferenceNumber + lastNumber.ToString();
-                            Console.WriteLine($"\n{i + 1}. {correctRefNumber}");
+                            Console.WriteLine($"\nRandom {i + 1}. {correctRefNumber}");
                         }
                         refTotal = 0;
                         Console.WriteLine();
@@ -89,11 +89,11 @@ namespace Harjoitustyö
             {
                 if (x != y)
                 {
-                    Console.WriteLine($"\nSinun viitenumerossa on virheellinen viimeinen numero, sen pitäisi olla {z}.\n");
+                    Console.WriteLine($"\nSinun viitenumerosi {x} on virheellinen, sen viimeisen numeron pitäisi olla {z}.\n");
                 }
                 else if (x == y)
                 {
-                    Console.WriteLine($"\n\nSinun viitenumerosi {x} on todellinen.\n\n");
+                    Console.WriteLine($"\nSinun viitenumerosi {x} on todellinen.\n");
                 }
             }
 
