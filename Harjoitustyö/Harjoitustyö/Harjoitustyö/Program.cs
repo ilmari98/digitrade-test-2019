@@ -23,35 +23,34 @@ namespace Harjoitustyö
                         newRefNumber = RemoveSpaces(refNumberSansLast);
                         SumOfRefNum(newRefNumber);
                         lastNumber = RoundUp(refTotal) - refTotal;
-                        Console.WriteLine($"\n\nViimeinen numero on {lastNumber}, eli viitenumero on {(newRefNumber.ToString() + lastNumber.ToString()).Insert(5, " ").Insert(11, " ").Insert(17, " ")}.\n\n");
+                        correctRefNumber = (newRefNumber.ToString() + lastNumber);
+                        Console.WriteLine($"\n\nViimeinen numero on { lastNumber}, eli viitenumero on {correctRefNumber}.\n\n");
                         refTotal = 0;
                         break;
                     case '2':
                         Console.WriteLine("\n\nSyötä viitenumero ja sovellus tarkistaa sen todellisuuden.\n");
                         refNumber = Console.ReadLine();
                         refNumberSansLast = refNumber.Remove(refNumber.Length - 1, 1);
-                        newRefNumber = RemoveSpaces(refNumberSansLast);
-                        SumOfRefNum(newRefNumber);
+                        SumOfRefNum(refNumberSansLast);
                         lastNumber = RoundUp(refTotal) - refTotal;
                         correctRefNumber = refNumberSansLast.ToString() + lastNumber.ToString();
-                        refTotal = 0;
                         RefChecker(refNumber, correctRefNumber, lastNumber);
                         refTotal = 0;
                         break;
                     case '3':
                         Console.WriteLine("\n\nKuinka monta satunnaista viitenumeroa haluat luoda.\n");
-                        int amount = int.Parse(Console.ReadLine());
+                        int randomAmount = int.Parse(Console.ReadLine());
                         Random rnd = new Random();
                         int randonRefrenceNumber;
                         string randomizedReferenceNumber;
-                        for (int i = 0; i < amount; i++)
+                        for (int i = 0; i < randomAmount; i++)
                         {
                             randonRefrenceNumber = rnd.Next(100000000, 999999999);
                             randomizedReferenceNumber = randonRefrenceNumber.ToString();
                             SumOfRefNum(randomizedReferenceNumber);
                             lastNumber = RoundUp(refTotal) - refTotal;
                             correctRefNumber = randomizedReferenceNumber + lastNumber.ToString();
-                            Console.WriteLine($"\n{i+1}. {correctRefNumber.Insert(5," ").Insert(10, " ").Insert(15, " ")}");
+                            Console.WriteLine($"\n{i + 1}. {correctRefNumber}");
                         }
                         refTotal = 0;
                         Console.WriteLine();
@@ -94,7 +93,7 @@ namespace Harjoitustyö
                 }
                 else if (x == y)
                 {
-                    Console.WriteLine($"\n\nSinun viitenumerosi {x.Insert(5, " ").Insert(10, " ").Insert(15, " ")} on todellinen.\n\n");
+                    Console.WriteLine($"\n\nSinun viitenumerosi {x.Insert(5, " ").Insert(11, " ").Insert(17, " ")} on todellinen.\n\n");
                 }
             }
 
